@@ -1,28 +1,50 @@
+// app/api/records/route.ts
 import { NextResponse } from "next/server"
 import { encrypt } from "@/lib/crypto"
 
-const records = [
-  {
-    id: 1,
-    title: "Patient A - Visit",
-    timestamp: "2025-11-21T10:00:00Z",
-    snippet: "Blood pressure slightly elevated, follow-up in 1 week.",
-  },
-  {
-    id: 2,
-    title: "Survey B - Onboarding",
-    timestamp: "2025-11-21T11:30:00Z",
-    snippet: "User completed initial onboarding survey successfully.",
-  },
-  {
-    id: 3,
-    title: "Patient C - New Symptoms",
-    timestamp: "2025-11-21T14:15:00Z",
-    snippet: "Reported mild chest discomfort, recommended ECG.",
-  },
-]
+export const runtime = "nodejs"
+
+type DummyProduct = {
+  id: number
+  title: string
+  description: string
+  price: number
+  brand: string
+  category: string
+  thumbnail: string
+  images: string[]        
+}
+
+type DummyResponse = {
+  products: DummyProduct[]
+  total: number
+  skip: number
+  limit: number
+}
 
 export async function GET() {
-  const encryptedData = encrypt(records)
-  return NextResponse.json(encryptedData)
+  const externalRes = await fetch("https://dummyjson.com/products?limit=120")
+  if (!externalRes.ok) {
+    return NextResponse.json(
+      { error: "Failed to fetch products from DummyJSON" },
+      { status: 500 }
+    )
+  }
+
+  const data = (await externalRes.json()) as DummyResponse
+
+  const now = new Date().toISOString()
+
+  const records = data.products.map((p) => ({
+    id: p.id,
+    title: p.title,
+    snippet: p.description,
+    price: p.price,
+    brand: p.brand,
+    category: p.category,
+    imageUrl: p.images[0] ?? p.thumbnail,
+  }))
+
+  const encryptedPayload = encrypt(records)
+  return NextResponse.json(encryptedPayload)
 }
