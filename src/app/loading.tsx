@@ -1,4 +1,3 @@
-// app/loading.tsx
 export default function Loading() {
   return (
     <main className="min-h-screen from-slate-100 via-slate-50 to-slate-200 px-4 py-10">
@@ -8,6 +7,11 @@ export default function Loading() {
           <div className="mx-auto mb-2 h-6 w-48 animate-pulse rounded-full bg-gray-300" />
           <div className="mx-auto h-4 w-72 animate-pulse rounded-full bg-gray-200" />
         </header>
+
+        {/* Toggle skeleton */}
+        <div className="mx-auto max-w-6xl flex justify-end">
+          <div className="my-2 h-9 animate-pulse rounded-full bg-gray-200 sm:w-40" />
+        </div>
 
         <div className="mx-auto flex max-w-6xl flex-col gap-4">
           {/* Sticky header skeleton */}

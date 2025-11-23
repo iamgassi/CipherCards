@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔐 CipherCards – Secure Product Grid (Next.js + Tailwind)
 
-## Getting Started
+A modern **Next.js (App Router) + TypeScript** application that demonstrates:
 
-First, run the development server:
+- Secure **server-side encryption/decryption** using Node crypto
+- **Server-Side Rendering (SSR)** with decrypted data (no secrets on client)
+- A **responsive, animated card grid** using Tailwind CSS
+- **Search with deferred filtering**
+- **Pagination component**
+- **Light / Dark theme toggle**
+- **Sticky header and footer**
+- **Skeleton loading UI**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Data is sourced from `DummyJSON`, **encrypted on an internal API route**, and **only decrypted on the server** before rendering.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### ✅ Security
+- Encrypted API payload using **symmetric encryption**
+- Encryption key stored in `.env.local`
+- Decryption performed **only during SSR**
+- No plaintext data is exposed to client-side API calls
 
-## Learn More
+### ✅ UI / UX
+- Responsive card layout  
+  - 1 column on mobile  
+  - 2 columns on tablet  
+  - 3 columns on desktop  
+- Product cards 
+- Sticky header (Search bar)
+- Sticky footer (Pagination)
+- Search with `useDeferredValue`
+- Skeleton loading screen
+- Light / Dark mode toggle
 
-To learn more about Next.js, take a look at the following resources:
+### ✅ Tech Stack
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- React Hooks
+- Node Crypto
+- DummyJSON API
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📸 UI Preview
 
-## Deploy on Vercel
+### Dark Mode
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Dark Mode UI](public/dark.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Light Mode
+
+![Light Mode UI](public/light.png)
